@@ -1,11 +1,11 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const router = require('./routes/server');
+const router = require('./routes');
 
 const PORT = 8000;
-
 const server = express();
+
 server.use(morgan('dev'));
 
 server.use('/api', router);
