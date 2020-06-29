@@ -1,12 +1,17 @@
 const express = require('express');
+const morgan = require('morgan');
 
-const app = express();
+const router = require('./routes');
 
-app.get('/', (req, res) => {
-  res.send('hello');
-  process.exit(1);
+const PORT = 8000;
+
+const server = express();
+server.use(morgan('dev'));
+
+server.use(router);
+
+server.listen(PORT, () => {
+  console.log(`Le serveur est lancé sur le port ${PORT} 🚀`);
 });
 
-app.listen(3000, () => {
-  console.log('Le serveur est lancé sur le port 3000');
-});
+module.exports = server;
