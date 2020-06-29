@@ -3,8 +3,8 @@ const { response } = require('..');
 
 const router = express.Router();
 
-router.get('/api', (req, res) => {
-  res.send('ok');
+router.get('/', (req, res) => {
+  res.status(200).json({});
 });
 
 router.use('*', (req, res) => {

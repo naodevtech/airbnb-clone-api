@@ -1,14 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const router = require('./routes');
+const router = require('./routes/server');
 
 const PORT = 8000;
 
 const server = express();
 server.use(morgan('dev'));
 
-server.use(router);
+server.use('/api', router);
 
 server.listen(PORT, () => {
   console.log(`Le serveur est lancé sur le port ${PORT} 🚀`);
