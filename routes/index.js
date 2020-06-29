@@ -1,10 +1,11 @@
 const express = require('express');
 
+// Imporation de la methode Router() pour découper nos routes
 const router = express.Router();
 
 router.get('/', (req, res) => {
   res.status(200).json({
-    message: 'Bienvenue ! ',
+    message: 'Hello World!',
   });
 });
 
