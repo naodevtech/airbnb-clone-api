@@ -7,30 +7,24 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
-      first_name: {
-        allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
       },
       last_name: {
-        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      first_name: {
         type: Sequelize.STRING,
       },
       email: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
-      status: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
+      role: {
+        type: Sequelize.STRING,
       },
       password: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       avatar: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
