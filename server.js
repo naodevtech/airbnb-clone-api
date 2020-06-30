@@ -7,8 +7,8 @@ const router = require('./routes');
 
 const server = express();
 
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
 
 // Utilisation du logger
 server.use(morgan('dev'));
