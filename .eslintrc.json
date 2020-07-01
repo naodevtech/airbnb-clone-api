@@ -28,6 +28,7 @@
     "no-shadow": "warn",
     "no-else-return": "warn",
     "prefer-const": "warn",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "no-useless-escape": "warn"
   }
 }
