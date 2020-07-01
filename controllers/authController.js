@@ -24,7 +24,7 @@ module.exports = {
         error: 'missing parameters',
       });
     }
-    // TODO : regexp for check forms
+    // TODO : check forms
     models.User.findOne({
       attributes: ['email'],
       where: { email: user.email },
@@ -43,24 +43,28 @@ module.exports = {
             })
               .then((newUser) => {
                 return res.status(201).json({
-                  roles: true,
+                  role: newUser.role,
                   firstname: newUser.firstname,
                   lastname: newUser.lastname,
                   email: newUser.email,
                 });
               })
               .catch((err) => {
-                return res.status(400).json({
-                  message: "Le champ first_name n'est pas renseigné",
+                return res.status(500).json({
+                  error: "Impossible d'ajouter un utilisateur ❌",
                 });
               });
           });
         } else {
-          return res.status(409).json({ error: 'user already exist' });
+          return res.status(409).json({
+            error: 'Un utilisateur existe déjà sous le même email ❌',
+          });
         }
       })
       .catch((err) => {
-        return err;
+        return res
+          .status(500)
+          .json({ error: "Quelque chose c'est mal passé ❌" });
       });
   },
 };
