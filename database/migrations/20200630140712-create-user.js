@@ -9,11 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      first_name: {
+      firstname: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      last_name: {
+      lastname: {
         allowNull: false,
         type: Sequelize.STRING,
       },
@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      roles: {
+      role: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
       },
