@@ -22,6 +22,9 @@
     "class-methods-use-this": "off",
     "import/no-dynamic-require": "warn",
     "global-require": "warn",
-    "strict": "warn"
+    "strict": "warn",
+    "consistent-return": "warn",
+    "no-dupe-keys": "warn",
+    "no-shadow": "warn"
   }
 }
