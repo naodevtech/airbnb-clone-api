@@ -16,29 +16,19 @@ module.exports = {
       role: req.body.role,
       avatar: req.body.avatar,
     };
-    if (
-      user.lastname == null ||
-      user.firstname == null ||
-      user.email == null ||
-      user.password == null ||
-      user.role == null ||
-      user.avatar == null
-    ) {
-      return res.status(400).json({
-        error: `Le champ hhh n'est pas rempli`,
-      });
+    for (const key in user) {
+      if (user[key] == null) {
+        return res.status(400).json({
+          error: `Le champs ${key} n'est pas renseigné ❌`,
+        });
+      }
     }
-    if (
-      !isString(user.firstname) ||
-      !isString(user.lastname) ||
-      !isString(user.email) ||
-      !isString(user.password) ||
-      !isString(user.role) ||
-      !isString(user.avatar)
-    ) {
-      res.status(400).json({
-        error: 'must be string !',
-      });
+    for (const key in user) {
+      if (!isString(user[key])) {
+        return res.status(400).json({
+          error: `Le champs ${key} n'est pas une chaîne de caractères ❌`,
+        });
+      }
     }
     // TODO : check forms
     models.User.findOne({

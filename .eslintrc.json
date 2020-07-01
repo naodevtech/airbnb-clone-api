@@ -26,6 +26,8 @@
     "consistent-return": "warn",
     "no-dupe-keys": "warn",
     "no-shadow": "warn",
-    "no-else-return": "warn"
+    "no-else-return": "warn",
+    "prefer-const": "warn",
+    "no-restricted-syntax": "off"
   }
 }
