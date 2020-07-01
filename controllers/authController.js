@@ -2,6 +2,10 @@ const brcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
 
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
+}
+
 module.exports = {
   register: (req, res) => {
     const user = {
@@ -21,7 +25,19 @@ module.exports = {
       user.avatar == null
     ) {
       return res.status(400).json({
-        error: 'missing parameters',
+        error: `Le champ hhh n'est pas rempli`,
+      });
+    }
+    if (
+      !isString(user.firstname) ||
+      !isString(user.lastname) ||
+      !isString(user.email) ||
+      !isString(user.password) ||
+      !isString(user.role) ||
+      !isString(user.avatar)
+    ) {
+      res.status(400).json({
+        error: 'must be string !',
       });
     }
     // TODO : check forms
