@@ -1,4 +1,4 @@
-const brcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const jwtUtils = require('../utils/jwt.utils');
 const models = require('../models');
 
@@ -43,7 +43,7 @@ module.exports = {
     })
       .then((userFound) => {
         if (!userFound) {
-          brcrypt.hash(user.password, 5, (err, bcryptedPassword) => {
+          bcrypt.hash(user.password, 5, (err, bcryptedPassword) => {
             const newUser = models.User.create({
               email: user.email,
               lastname: user.lastname,
@@ -94,7 +94,7 @@ module.exports = {
     })
       .then((userFound) => {
         if (userFound) {
-          brcrypt.compare(
+          bcrypt.compare(
             userinfos.password,
             userFound.password,
             (errBycrypt, resBycrypt) => {
