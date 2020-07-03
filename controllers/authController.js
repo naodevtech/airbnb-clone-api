@@ -48,7 +48,6 @@ module.exports = {
               email: user.email,
               lastname: user.lastname,
               firstname: user.firstname,
-              email: user.email,
               password: bcryptedPassword,
               role: user.role,
               avatar: user.avatar,
@@ -79,6 +78,7 @@ module.exports = {
           .json({ error: "Quelque chose c'est mal passé ❌" });
       });
   },
+
   login: (req, res) => {
     const userinfos = {
       email: req.body.email,

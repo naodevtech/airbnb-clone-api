@@ -13,13 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Place.belongsTo(models.User, {
         foreignKey: {
-          allowNull: false,
+          allowNull: true,
+          name: 'host_id',
         },
       });
-
       models.Place.belongsTo(models.City, {
         foreignKey: {
-          allowNull: false,
+          allowNull: true,
+          name: 'city_id',
         },
       });
     }
@@ -27,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   Place.init(
     {
       title: DataTypes.STRING,
-      description: DataTypes.TEXT,
+      description: DataTypes.STRING,
       rooms: DataTypes.INTEGER,
       bathrooms: DataTypes.INTEGER,
       max_guests: DataTypes.INTEGER,
