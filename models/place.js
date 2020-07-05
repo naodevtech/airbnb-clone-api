@@ -13,13 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Place.belongsTo(models.User, {
         foreignKey: {
-          allowNull: false,
+          allowNull: true,
+          name: 'host_id',
         },
       });
 
       models.Place.belongsTo(models.City, {
         foreignKey: {
-          allowNull: false,
+          allowNull: true,
+          name: 'city_id',
         },
       });
     }

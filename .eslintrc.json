@@ -29,6 +29,9 @@
     "no-else-return": "warn",
     "prefer-const": "warn",
     "no-restricted-syntax": "off",
-    "no-useless-escape": "warn"
+    "no-useless-escape": "warn",
+    "no-loop-func": "off",
+    "dot-notation": "warn",
+    "no-undef": "warn"
   }
 }

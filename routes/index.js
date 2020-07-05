@@ -1,9 +1,14 @@
 const express = require('express');
 const authRouter = require('./authRoutes');
-// Imporation de la methode Router() pour découper nos routes
+const citiesRouter = require('./admin/citiesRouter');
+const placesRouter = require('./placeRouter');
+
 const router = express.Router();
 
 router.use(authRouter);
+
+router.use(citiesRouter);
+router.use(placesRouter);
 
 router.get('/', (req, res) => {
   res.status(200).json({
