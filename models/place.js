@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
           name: 'host_id',
         },
       });
+
       models.Place.belongsTo(models.City, {
         foreignKey: {
           allowNull: true,
@@ -28,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   Place.init(
     {
       title: DataTypes.STRING,
-      description: DataTypes.STRING,
+      description: DataTypes.TEXT,
       rooms: DataTypes.INTEGER,
       bathrooms: DataTypes.INTEGER,
       max_guests: DataTypes.INTEGER,

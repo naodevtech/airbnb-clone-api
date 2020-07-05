@@ -58,5 +58,53 @@
   {
     "id": 15,
     "name": "Metz"
+  },
+  {
+    "id": 45,
+    "name": "Tunis"
+  },
+  {
+    "id": 29,
+    "name": "Marrakech"
+  },
+  {
+    "id": 90,
+    "name": "Kabul"
+  },
+  {
+    "id": 100,
+    "name": "Téhéran"
+  },
+  {
+    "id": 38,
+    "name": "Perpignan"
+  },
+  {
+    "id": 39,
+    "name": "Madrid"
+  },
+  {
+    "id": 40,
+    "name": "Chartres"
+  },
+  {
+    "id": 41,
+    "name": "Carcassonne"
+  },
+  {
+    "id": 42,
+    "name": "Lorient"
+  },
+  {
+    "id": 43,
+    "name": "Pattaya"
+  },
+  {
+    "id": 44,
+    "name": "Sousse"
+  },
+  {
+    "id": 93,
+    "name": "Saint-denis"
   }
 ]
