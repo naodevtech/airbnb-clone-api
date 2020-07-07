@@ -2,11 +2,12 @@
 const express = require('express');
 const morgan = require('morgan'); // Logger qui check nos routes
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 const router = require('./routes');
 
 const server = express();
 
+server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 

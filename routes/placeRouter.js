@@ -7,7 +7,7 @@ const placesRouter = express.Router();
 
 placesRouter.get('/places/:id', placeController.getPlaceById);
 
-placesRouter.get('/places', (req, res) => {});
+placesRouter.get('/places', placeController.getAllPlaces);
 
 placesRouter.post('/places', (req, res) => {
   let userSession = {};

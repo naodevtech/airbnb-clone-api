@@ -127,4 +127,28 @@ module.exports = {
         });
       });
   },
+  getAllPlaces: (req, res) => {
+    models.Place.findAll({
+      attributes: [
+        'id',
+        'city_id',
+        'title',
+        'description',
+        'rooms',
+        'bathrooms',
+        'max_guests',
+        'price_by_night',
+      ],
+      include: [
+        {
+          model: models.City,
+          attributes: ['name'],
+        },
+      ],
+      // raw: true,
+    }).then((places) => {
+      console.log(places[0].City);
+      res.status(201).json(places);
+    });
+  },
 };
