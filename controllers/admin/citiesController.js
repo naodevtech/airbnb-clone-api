@@ -2,45 +2,63 @@ const models = require('../../models');
 
 const DATA_CITIES = require('../../cities.json');
 
-module.exports = {
-  addCities: (req, res) => {
-    for (let i = 0; i < DATA_CITIES.length; i += 1) {
-      models.City.findOne({
-        where: { id: DATA_CITIES[i].id },
-      })
-        .then((cityFounded) => {
-          console.log('cityfounded : ', cityFounded);
-          if (!cityFounded) {
-            let newCities = models.City.create({
-              id: DATA_CITIES[i].id,
-              name: DATA_CITIES[i].name,
+async function createCity(i) {
+  return new Promise((resolve, reject) => {
+    models.City.findOne({
+      where: { id: DATA_CITIES[i].id },
+    })
+      .then((cityFounded) => {
+        if (!cityFounded) {
+          models.City.create({
+            id: DATA_CITIES[i].id,
+            name: DATA_CITIES[i].name,
+          })
+            .then((newCities) => {
+              resolve(newCities);
             })
-              .then((newCities) => {
-                console.log(('newCities : ', newCities));
-                return res.status(201).json({
-                  Message: 'Les Cities ont été mise à jours ! ✅',
-                  City: newCities,
-                });
-              })
-              .catch((err) => {
-                return res.status(500).json({
-                  error: 'Aucune cities à ajouter ❌',
-                });
-              });
-          }
-        })
-        .catch((err) => {
-          return res.status(400).json({
-            error: "Il y'a eu une erreur dans la requête ! ❌",
-          });
-        });
-    }
-  },
-  getAllCities: (req, res) => {
-    models.City.findAll().then((cities) => {
-      res.status(201).json({
-        cities: cities,
+            .catch((err) => {
+              reject(err);
+            });
+        } else {
+          resolve(null);
+        }
+      })
+      .catch((err) => {
+        reject(err);
       });
+  });
+}
+
+async function getCities() {
+  let cities = [];
+  return new Promise(async (resolve, reject) => {
+    for (let i = 0; i < DATA_CITIES.length; i += 1) {
+      //trycatch
+      let city = await createCity(i);
+      city ? cities.push(city) : null;
+      console.log(city);
+      console.log(DATA_CITIES[i]);
+    }
+    resolve(cities);
+  });
+}
+
+module.exports = {
+  addCities: async (req, res) => {
+    const cities = await getCities();
+    console.log(cities);
+    return res.status(200).json({
+      cities,
     });
+  },
+
+  getAllCities: async (req, res) => {
+    models.City.findAll()
+      .then((cities) => {})
+      .catch((err) => {
+        return res.status(400).json({
+          error: err,
+        });
+      });
   },
 };
