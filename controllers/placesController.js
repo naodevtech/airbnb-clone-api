@@ -10,6 +10,7 @@ module.exports = {
       bathrooms: req.body.bathrooms,
       max_guests: req.body.max_guests,
       price_by_night: req.body.price_by_night,
+      image: req.body.image,
       city_id: req.body.city_id,
       host_id: userSession.id,
     };
@@ -34,6 +35,7 @@ module.exports = {
             bathrooms: req.body.bathrooms,
             max_guests: req.body.max_guests,
             price_by_night: req.body.price_by_night,
+            image: req.body.image,
             city_id: req.body.city_id,
             host_id: userSession.id,
           }).then((newPlace) => {
@@ -52,6 +54,7 @@ module.exports = {
                     bathrooms: newPlace.bathrooms,
                     max_guests: newPlace.max_guests,
                     price_by_night: newPlace.price_by_night,
+                    image: newPlace.image,
                   })
                   .catch((err) => {
                     res.status(400).json({
@@ -89,6 +92,7 @@ module.exports = {
         'bathrooms',
         'max_guests',
         'price_by_night',
+        'image',
       ],
       where: { id: req.params.id },
     })
@@ -107,6 +111,7 @@ module.exports = {
                 bathrooms: placeFounded.bathrooms,
                 max_guests: placeFounded.max_guests,
                 price_by_night: placeFounded.price_by_night,
+                image: placeFounded.image,
               });
             }
             res.status(404).json({
@@ -138,6 +143,7 @@ module.exports = {
         'bathrooms',
         'max_guests',
         'price_by_night',
+        'image',
       ],
       include: [
         {
