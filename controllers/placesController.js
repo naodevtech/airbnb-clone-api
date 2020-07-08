@@ -93,14 +93,16 @@ module.exports = {
         'max_guests',
         'price_by_night',
         'image',
+        'city_id',
       ],
       where: { id: req.params.id },
     })
       .then((placeFounded) => {
         models.City.findOne({
-          where: { id: placeFounded.id },
+          where: { id: placeFounded.city_id },
         })
           .then((cityFounded) => {
+            console.log(placeFounded);
             if (placeFounded && cityFounded) {
               return res.status(200).json({
                 id: placeFounded.id,
