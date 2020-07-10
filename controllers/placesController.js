@@ -1,4 +1,5 @@
 const models = require('../models');
+const authController = require('./authController');
 
 module.exports = {
   addPlace: (req, res, userSession) => {
@@ -154,9 +155,82 @@ module.exports = {
         },
       ],
       // raw: true,
-    }).then((places) => {
-      console.log(places[0].City);
-      res.status(201).json(places);
+    })
+      .then((places) => {
+        console.log(places[0].City);
+        res.status(201).json(places);
+      })
+      .catch((err) => {
+        return res.status(404).json({
+          error:
+            "Il semble qu'il y est une erreur dans la récupération de tous les appartements ❌",
+        });
+      });
+  },
+  getPlacesByCity: (req, res) => {
+    console.log(req.query.cityName);
+    models.City.findAll({
+      atttributes: ['id', 'name'],
+      where: { name: req.query.cityName },
+    }).then((city) => {
+      // console.log(city);
+      models.Place.findAll({
+        attributes: [
+          'id',
+          'title',
+          'city_id',
+          'description',
+          'rooms',
+          'bathrooms',
+          'max_guests',
+          'price_by_night',
+        ],
+        include: [
+          {
+            model: models.City,
+            attributes: ['name'],
+          },
+        ],
+        where: { city_id: city[0].dataValues.id },
+      })
+        .then((places) => {
+          if (places.length > 0) {
+            res.status(201).json(places);
+          }
+          res.status(400).json({
+            error:
+              "Il ne semble pas y avoir d'appartements en location dans cette ville ❌",
+          });
+        })
+        .catch((err) => {
+          return res.status(404).json({
+            error:
+              "Il semble qu'il y est une erreur dans la récupération des appartements via le nom de la ville ❌",
+          });
+        });
     });
+  },
+  deletePlace: (req, res, userSession) => {
+    models.Place.destroy({
+      where: {
+        id: req.params.id,
+        host_id: userSession.id,
+      },
+    })
+      .then((placeDeleted) => {
+        if (placeDeleted === 1) {
+          return res.status(204);
+        }
+        return res.status(403).json({
+          message:
+            "Vous n'êtes pas authorisé à supprimer un bien ne vous appartenant pas ❌",
+        });
+      })
+      .catch((err) => {
+        return res.status(403).json({
+          error:
+            "Il y'a eu une erreur lors de la suppresion d'un de vos biens ❌",
+        });
+      });
   },
 };
