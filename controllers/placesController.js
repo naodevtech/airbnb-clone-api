@@ -223,7 +223,7 @@ module.exports = {
         }
         return res.status(403).json({
           message:
-            "Vous n'êtes pas authorisé à supprimer un bien ne vous appartenant pas ❌",
+            "Vous n'êtes pas autorisé à supprimer un bien ne vous appartenant pas ❌",
         });
       })
       .catch((err) => {
@@ -232,5 +232,63 @@ module.exports = {
             "Il y'a eu une erreur lors de la suppresion d'un de vos biens ❌",
         });
       });
+  },
+  updatePlaceValues: async (req, res, userSession) => {
+    console.log(req.body);
+    const place = await models.Place.findOne({
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'rooms',
+        'bathrooms',
+        'max_guests',
+        'price_by_night',
+      ],
+      include: [
+        {
+          model: models.City,
+          attributes: ['name'],
+        },
+      ],
+      where: { id: req.params.placeId, host_id: userSession.id },
+    });
+    const titleOfPlace = req.body.title;
+    const descriptionOfPlace = req.body.description;
+    const roomsOfPlace = req.body.rooms;
+    const bathroomsofPlace = req.body.bathrooms;
+    const maxGuests = req.body.max_guests;
+    const priceByNight = req.body.price_by_night;
+    if (Object.entries(req.body).length === 0) {
+      res.status(404).json({
+        Message: 'Aucune données à mettre à jours ❌',
+      });
+    }
+    if (place) {
+      if (titleOfPlace) {
+        place.title = titleOfPlace;
+      }
+      if (descriptionOfPlace) {
+        place.description = descriptionOfPlace;
+      }
+      if (roomsOfPlace) {
+        place.rooms = roomsOfPlace;
+      }
+      if (bathroomsofPlace) {
+        place.bathrooms = bathroomsofPlace;
+      }
+      if (maxGuests) {
+        place.max_guests = maxGuests;
+      }
+      if (priceByNight) {
+        place.price_by_night = priceByNight;
+      }
+      await place.save();
+      return res.status(201).json(place);
+    }
+    return res.status(403).json({
+      Message:
+        "Vous n'êtes pas autorisé à modifier une offre qui ne vous appartiens pas ❌",
+    });
   },
 };

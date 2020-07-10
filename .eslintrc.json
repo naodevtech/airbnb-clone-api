@@ -29,6 +29,8 @@
     "no-else-return": "warn",
     "prefer-const": "warn",
     "no-restricted-syntax": "off",
-    "no-useless-escape": "warn"
+    "no-useless-escape": "warn",
+    "prefer-destructuring": "warn",
+    "no-param-reassign": "warn"
   }
 }

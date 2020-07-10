@@ -1,6 +1,7 @@
 const express = require('express');
 const authController = require('../controllers/authController');
 const placeController = require('../controllers/placesController');
+const placesController = require('../controllers/placesController');
 
 const placesRouter = express.Router();
 
@@ -34,6 +35,20 @@ placesRouter.delete('/places/:id', (req, res) => {
       });
     }
     placeController.deletePlace(req, res, userSession);
+  });
+});
+
+placesRouter.patch('/places/:placeId', (req, res) => {
+  let userSession = {};
+  authController.getUserSession(req, res, (userInfos) => {
+    userSession = userInfos;
+    if (userSession.role !== 'host') {
+      return res.status(403).json({
+        Message:
+          "Vous n'êtes pas autorisé à accéder à cette ressource en tant que visiteur ou touriste❌",
+      });
+    }
+    placesController.updatePlaceValues(req, res, userSession);
   });
 });
 
